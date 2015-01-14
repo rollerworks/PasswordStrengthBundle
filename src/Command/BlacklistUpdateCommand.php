@@ -53,11 +53,15 @@ class BlacklistUpdateCommand extends BlacklistCommand
                 $output->writeln('<error>Unable to read passwords list. No such file: ' . $input->getOption('file') . '</error>');
 
                 return;
-            } elseif (!is_readable($file)) {
+            }
+
+            if (!is_readable($file)) {
                 $output->writeln('<error>Unable to read passwords list. Access denied: ' . $input->getOption('file') . '</error>');
 
                 return;
-            } elseif (filesize($file) == 0) {
+            }
+
+            if (filesize($file) == 0) {
                 $output->writeln('<comment>Passwords list seems empty, are you sure this is the correct file?</comment>');
 
                 return;
