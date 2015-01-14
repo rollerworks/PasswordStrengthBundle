@@ -12,12 +12,15 @@
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider;
 
 class BlacklistDeleteCommand extends BlacklistCommand
 {
+    const MESSAGE = '<info>Successfully removed %d password(s) from your blacklist database.</info>';
+
     /**
      * {@inheritDoc}
      */
@@ -27,7 +30,7 @@ class BlacklistDeleteCommand extends BlacklistCommand
             ->setName('rollerworks-password:blacklist:delete')
             ->setDescription('removes passwords from your blacklist database')
             ->addArgument('passwords', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'space separated list of words to remove')
-            ->addOption('file', null, null, 'Text file to read for deletion, every line is considered one word')
+            ->addOption('file', null, InputOption::VALUE_OPTIONAL, 'Text file to read for deletion, every line is considered one word')
         ;
     }
 
@@ -66,12 +69,12 @@ class BlacklistDeleteCommand extends BlacklistCommand
                 return;
             }
 
-            $count = $this->readFromFile($service, $file);
+            $count = $this->doFromFile($service, $file);
         } else {
-            $count = $this->readFromArray($service, (array) $input->getArgument('passwords'));
+            $count = $this->doFromArray($service, (array) $input->getArgument('passwords'));
         }
 
-        $output->writeln(sprintf('<info>Successfully removed %d password(s) from your blacklist database.</info>', $count));
+        $output->writeln(sprintf(self::MESSAGE, $count));
     }
 
     /**
@@ -80,7 +83,7 @@ class BlacklistDeleteCommand extends BlacklistCommand
      *
      * @return integer
      */
-    protected function readFromFile(SqliteProvider $service, $filename)
+    protected function doFromFile(SqliteProvider $service, $filename)
     {
         $file = new \SplFileObject($filename, 'r');
         $count = 0;
@@ -104,7 +107,7 @@ class BlacklistDeleteCommand extends BlacklistCommand
      *
      * @return integer
      */
-    protected function readFromArray(SqliteProvider $service, array $passwords)
+    protected function doFromArray(SqliteProvider $service, array $passwords)
     {
         $count = 0;
         foreach ($passwords as $password) {

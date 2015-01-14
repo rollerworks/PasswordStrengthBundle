@@ -19,6 +19,8 @@ use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider;
 
 class BlacklistUpdateCommand extends BlacklistCommand
 {
+    const MESSAGE = '<info>Successfully added %d password(s) to your blacklist database.</info>';
+
     /**
      * {@inheritDoc}
      */
@@ -67,12 +69,12 @@ class BlacklistUpdateCommand extends BlacklistCommand
                 return;
             }
 
-            $count = $this->importFromFile($service, $file);
+            $count = $this->doFromFile($service, $file);
         } else {
-            $count = $this->importFromArray($service, (array) $input->getArgument('passwords'));
+            $count = $this->doFromArray($service, (array) $input->getArgument('passwords'));
         }
 
-        $output->writeln(sprintf('<info>Successfully added %d password(s) to your blacklist database.</info>', $count));
+        $output->writeln(sprintf(self::MESSAGE, $count));
     }
 
     /**
@@ -81,7 +83,7 @@ class BlacklistUpdateCommand extends BlacklistCommand
      *
      * @return integer
      */
-    protected function importFromFile(SqliteProvider $service, $filename)
+    protected function doFromFile(SqliteProvider $service, $filename)
     {
         $file = new \SplFileObject($filename, 'r');
         $count = 0;
@@ -105,7 +107,7 @@ class BlacklistUpdateCommand extends BlacklistCommand
      *
      * @return integer
      */
-    protected function importFromArray(SqliteProvider $service, array $passwords)
+    protected function doFromArray(SqliteProvider $service, array $passwords)
     {
         $count = 0;
         foreach ($passwords as $password) {
