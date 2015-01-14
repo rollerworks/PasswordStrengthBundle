@@ -18,7 +18,8 @@
         "php": ">=5.3.3",
         "symfony/framework-bundle": "~2.1",
         "symfony/console": "~2.1",
-        "symfony/validator": "~2.1"
+        "symfony/validator": "~2.1",
+        "rollerworks/password-strength-bundle": "~1.1.3"
     },
     "require-dev": {
         "symfony/validator": "~2.3@dev",
