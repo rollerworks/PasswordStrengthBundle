@@ -70,7 +70,7 @@ class PasswordStrengthValidator extends ConstraintValidator
 
         $alpha = $digit = $specialChar = false;
 
-        if ($passLength > $constraint->minLength) {
+        if ($passLength >= $constraint->minLength) {
             $passwordStrength++;
         }
 
