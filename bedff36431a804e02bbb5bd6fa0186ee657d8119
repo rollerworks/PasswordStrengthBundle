@@ -1,0 +1,38 @@
+---------------------------------------------------------------------------
+
+by sstok at 2015-03-03 10:52
+
+`$passwordStrength = 0;` should be changed to 1 or else you will never reach 5 points.
+
+Great work :+1:
+
+---------------------------------------------------------------------------
+
+by mennowame at 2015-03-03 11:05
+
+Thanks :+1:
+There are 5 points where  $passwordStrength++ is executed. That should result in strength = 5.
+It might be a bit confusing that I've combined the following 2 rules in 1 if statement:
+
+* alpha character
+* lowercase and uppercase alpha character
+
+However they will both give an extra point. So I think it should be correct now.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-03-03 11:11
+
+Ah my bad :) ` if ($passLength > 12)` was hidden in diff.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-03-03 11:14
+
+Thank you @mennowame
+
+---------------------------------------------------------------------------
+
+by mennowame at 2015-03-03 11:20
+
+No problem :) Thanks for the bundle
