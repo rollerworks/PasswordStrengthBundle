@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Command;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Command;
 
 use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider;
 use Symfony\Component\DependencyInjection\Container;
@@ -22,7 +22,7 @@ abstract class BlacklistCommandTestCase extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        if (!class_exists('SQLite3') && (!class_exists('PDO') || !in_array('sqlite', \PDO::getAvailableDrivers()))) {
+        if (!class_exists('SQLite3') && (!class_exists('PDO') || !in_array('sqlite', \PDO::getAvailableDrivers(), true))) {
             self::markTestSkipped('This test requires SQLite support in your environment');
         }
 

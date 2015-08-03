@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Command;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Command;
 
+use Rollerworks\Bundle\PasswordStrengthBundle\Command\BlacklistPurgeCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Rollerworks\Bundle\PasswordStrengthBundle\Command\BlacklistPurgeCommand;
 
 class BlacklistPurgeCommandTest extends BlacklistCommandTestCase
 {
@@ -39,7 +39,7 @@ class BlacklistPurgeCommandTest extends BlacklistCommandTestCase
         $dialog = $command->getHelperSet()->get('dialog');
         $dialog->setInputStream($this->getInputStream("n\nno\n"));
 
-        $commandTester->execute(array('command' => $command->getName()), array('interactive' => true));
+        $commandTester->execute(['command' => $command->getName()], ['interactive' => true]);
 
         $this->assertRegExp('/This will remove all the passwords from your blacklist database!!/', $commandTester->getDisplay());
 
@@ -70,7 +70,7 @@ class BlacklistPurgeCommandTest extends BlacklistCommandTestCase
         $dialog = $command->getHelperSet()->get('dialog');
         $dialog->setInputStream($this->getInputStream("y\nyes\n"));
 
-        $commandTester->execute(array('command' => $command->getName()));
+        $commandTester->execute(['command' => $command->getName()]);
 
         $this->assertRegExp('/This will remove all the passwords from your blacklist database!!/', $commandTester->getDisplay());
 
@@ -97,7 +97,7 @@ class BlacklistPurgeCommandTest extends BlacklistCommandTestCase
         $this->assertTrue($this->getProvider()->isBlacklisted('kaboom'));
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName(), '--no-ask' => null));
+        $commandTester->execute(['command' => $command->getName(), '--no-ask' => null]);
 
         $this->assertFalse($this->getProvider()->isBlacklisted('test'));
         $this->assertFalse($this->getProvider()->isBlacklisted('foobar'));
@@ -107,7 +107,7 @@ class BlacklistPurgeCommandTest extends BlacklistCommandTestCase
     protected function getInputStream($input)
     {
         $stream = fopen('php://memory', 'r+', false);
-        fputs($stream, $input);
+        fwrite($stream, $input);
         rewind($stream);
 
         return $stream;

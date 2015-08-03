@@ -20,7 +20,7 @@ namespace Rollerworks\Bundle\PasswordStrengthBundle\Blacklist;
  */
 class ArrayProvider implements BlacklistProviderInterface
 {
-    private $blacklist = array();
+    private $blacklist = [];
 
     /**
      * @param array $blacklist
@@ -31,7 +31,7 @@ class ArrayProvider implements BlacklistProviderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isBlacklisted($password)
     {

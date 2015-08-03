@@ -51,10 +51,10 @@ abstract class PdoProvider implements UpdatableBlacklistProviderInterface
         }
 
         $db = $this->initDb();
-        $args = array(
+        $args = [
             ':password' => $password,
             ':created_at' => time(),
-        );
+        ];
 
         try {
             if ($this->isBlacklisted($password)) {
@@ -84,9 +84,9 @@ abstract class PdoProvider implements UpdatableBlacklistProviderInterface
         }
 
         $db = $this->initDb();
-        $args = array(
+        $args = [
             ':password' => $password,
-        );
+        ];
 
         try {
             $this->exec($db, 'DELETE FROM rollerworks_passdbl WHERE passwd = :password', $args);
@@ -132,13 +132,13 @@ abstract class PdoProvider implements UpdatableBlacklistProviderInterface
         }
 
         $db = $this->initDb();
-        $tokenExists = $this->fetch($db, 'SELECT 1 FROM rollerworks_passdbl WHERE passwd = :password LIMIT 1', array(':password' => $password));
+        $tokenExists = $this->fetch($db, 'SELECT 1 FROM rollerworks_passdbl WHERE passwd = :password LIMIT 1', [':password' => $password]);
 
         return !empty($tokenExists);
     }
 
     /**
-     * Initializes the database
+     * Initializes the database.
      *
      * @throws \RuntimeException When the requested database driver is not installed
      */
@@ -151,7 +151,7 @@ abstract class PdoProvider implements UpdatableBlacklistProviderInterface
      *
      * @return mixed
      */
-    protected function fetch($db, $query, array $args = array())
+    protected function fetch($db, $query, array $args = [])
     {
         $stmt = $this->prepareStatement($db, $query);
 
@@ -171,7 +171,7 @@ abstract class PdoProvider implements UpdatableBlacklistProviderInterface
      *
      * @throws \RuntimeException
      */
-    protected function exec($db, $query, array $args = array())
+    protected function exec($db, $query, array $args = [])
     {
         $stmt = $this->prepareStatement($db, $query);
 
@@ -189,9 +189,9 @@ abstract class PdoProvider implements UpdatableBlacklistProviderInterface
      * @param object $db
      * @param string $query
      *
-     * @return boolean|\PDOStatement|\SQLite3Stmt
-     *
      * @throws \RuntimeException
+     *
+     * @return bool|\PDOStatement|\SQLite3Stmt
      */
     protected function prepareStatement($db, $query)
     {

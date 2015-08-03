@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Validator;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Validator;
 
+use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\Blacklist;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\BlacklistValidator;
-use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider;
 use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;
 use Symfony\Component\Validator\Validation;
 
@@ -26,7 +26,7 @@ class BlacklistValidationTest extends AbstractConstraintValidatorTest
 
     protected function createValidator()
     {
-        $provider = new ArrayProvider(array('test', 'foobar'));
+        $provider = new ArrayProvider(['test', 'foobar']);
 
         return new BlacklistValidator($provider);
     }
@@ -64,9 +64,9 @@ class BlacklistValidationTest extends AbstractConstraintValidatorTest
 
     public function testBlackListed()
     {
-        $constraint = new Blacklist(array(
+        $constraint = new Blacklist([
             'message' => 'myMessage',
-        ));
+        ]);
         $this->validator->validate('test', $constraint);
 
         $this->buildViolation('myMessage')

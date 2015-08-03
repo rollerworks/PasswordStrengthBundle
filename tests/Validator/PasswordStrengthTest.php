@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Validator;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Validator;
 
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordStrength;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordStrengthValidator;
@@ -52,52 +52,52 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
 
     public static function getVeryWeakPasswords()
     {
-        return array(
-            array('weaker'),
-            array('123456'),
-            array('foobar'),
-            array('!.!.!.'),
-        );
+        return [
+            ['weaker'],
+            ['123456'],
+            ['foobar'],
+            ['!.!.!.'],
+        ];
     }
 
     public static function getWeakPasswords()
     {
-        return array(
-            array('wee6eak'),
-            array('foobar!'),
-            array('Foobar'),
-            array('123456!'),
-            array('7857375923752947'),
-            array('fjsfjdljfsjsjjlsj'),
-        );
+        return [
+            ['wee6eak'],
+            ['foobar!'],
+            ['Foobar'],
+            ['123456!'],
+            ['7857375923752947'],
+            ['fjsfjdljfsjsjjlsj'],
+        ];
     }
 
     public static function getMediumPasswords()
     {
-        return array(
-            array('Foobar!'),
-            array('foo-b0r!'),
-            array('fjsfjdljfsjsjjls1'),
-            array('785737592375294b'),
-        );
+        return [
+            ['Foobar!'],
+            ['foo-b0r!'],
+            ['fjsfjdljfsjsjjls1'],
+            ['785737592375294b'],
+        ];
     }
 
     public static function getStrongPasswords()
     {
-        return array(
-            array('Foobar!55!'),
-            array('Foobar$55'),
-            array('Foobar€55'),
-            array('Foobar€55'),
-        );
+        return [
+            ['Foobar!55!'],
+            ['Foobar$55'],
+            ['Foobar€55'],
+            ['Foobar€55'],
+        ];
     }
 
     public static function getVeryStrongPasswords()
     {
-        return array(
-            array('Foobar$55_4&F'),
-            array('L33RoyJ3Jenkins!'),
-        );
+        return [
+            ['Foobar$55_4&F'],
+            ['L33RoyJ3Jenkins!'],
+        ];
     }
 
     /**
@@ -110,7 +110,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 
@@ -119,12 +119,12 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
      */
     public function testWeakPasswords($value)
     {
-        $constraint = new PasswordStrength(array('minStrength' => 3, 'minLength' => 7));
+        $constraint = new PasswordStrength(['minStrength' => 3, 'minLength' => 7]);
 
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 7))
+            ->setParameters(['{{ length }}' => 7])
             ->assertRaised();
     }
 
@@ -138,7 +138,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 
@@ -152,7 +152,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 
@@ -178,7 +178,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 
@@ -192,7 +192,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 
@@ -206,7 +206,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 
@@ -220,7 +220,7 @@ class PasswordStrengthTest extends AbstractConstraintValidatorTest
         $this->validator->validate($value, $constraint);
 
         $this->buildViolation('password_too_weak')
-            ->setParameters(array('{{ length }}' => 6))
+            ->setParameters(['{{ length }}' => 6])
             ->assertRaised();
     }
 

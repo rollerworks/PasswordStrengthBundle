@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Command;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Command;
 
+use Rollerworks\Bundle\PasswordStrengthBundle\Command\BlacklistListCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Rollerworks\Bundle\PasswordStrengthBundle\Command\BlacklistListCommand;
 
 class BlacklistListCommandTest extends BlacklistCommandTestCase
 {
@@ -26,7 +26,7 @@ class BlacklistListCommandTest extends BlacklistCommandTestCase
 
         $command = $application->find('rollerworks-password:blacklist:list');
 
-        $blackListedWords = array('test', 'foobar', 'kaboom');
+        $blackListedWords = ['test', 'foobar', 'kaboom'];
 
         foreach ($blackListedWords as $word) {
             $this->getProvider()->add($word);
@@ -39,7 +39,7 @@ class BlacklistListCommandTest extends BlacklistCommandTestCase
 
         $commandTester = new CommandTester($command);
 
-        $commandTester->execute(array('command' => $command->getName()));
+        $commandTester->execute(['command' => $command->getName()]);
 
         $display = $commandTester->getDisplay(true);
 

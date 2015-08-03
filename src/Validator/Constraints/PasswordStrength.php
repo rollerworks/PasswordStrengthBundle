@@ -23,7 +23,7 @@ class PasswordStrength extends Constraint
     public $minStrength;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDefaultOption()
     {
@@ -32,6 +32,6 @@ class PasswordStrength extends Constraint
 
     public function getRequiredOptions()
     {
-        return array('minStrength');
+        return ['minStrength'];
     }
 }

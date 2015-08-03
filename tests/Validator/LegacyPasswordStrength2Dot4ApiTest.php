@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Validator;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Validator;
 
 use Symfony\Component\Validator\Validation;
 
