@@ -18,12 +18,12 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class RollerworksPasswordStrengthExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -51,7 +51,7 @@ class RollerworksPasswordStrengthExtension extends Extension
             $chainLoader = $container->getDefinition('rollerworks_password_strength.blacklist.provider.chain');
 
             foreach ($config['blacklist']['providers']['chain']['providers'] as $provider) {
-                $chainLoader->addMethodCall('addProvider', array(new Reference($provider)));
+                $chainLoader->addMethodCall('addProvider', [new Reference($provider)]);
             }
         }
     }

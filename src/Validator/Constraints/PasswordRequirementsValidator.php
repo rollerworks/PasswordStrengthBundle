@@ -30,11 +30,11 @@ class PasswordRequirementsValidator extends ConstraintValidator
         if ($constraint->minLength > 0 && (strlen($value) < $constraint->minLength)) {
             if ($this->context instanceof ExecutionContextInterface) {
                 $this->context->buildViolation($constraint->tooShortMessage)
-                    ->setParameters(array('{{length}}' => $constraint->minLength))
+                    ->setParameters(['{{length}}' => $constraint->minLength])
                     ->setInvalidValue($value)
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->tooShortMessage, array('{{length}}' => $constraint->minLength), $value);
+                $this->context->addViolation($constraint->tooShortMessage, ['{{length}}' => $constraint->minLength], $value);
             }
         }
 
@@ -44,7 +44,7 @@ class PasswordRequirementsValidator extends ConstraintValidator
                     ->setInvalidValue($value)
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->missingLettersMessage, array(), $value);
+                $this->context->addViolation($constraint->missingLettersMessage, [], $value);
             }
         }
 
@@ -54,7 +54,7 @@ class PasswordRequirementsValidator extends ConstraintValidator
                     ->setInvalidValue($value)
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->requireCaseDiffMessage, array(), $value);
+                $this->context->addViolation($constraint->requireCaseDiffMessage, [], $value);
             }
         }
 
@@ -64,7 +64,7 @@ class PasswordRequirementsValidator extends ConstraintValidator
                     ->setInvalidValue($value)
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->missingNumbersMessage, array(), $value);
+                $this->context->addViolation($constraint->missingNumbersMessage, [], $value);
             }
         }
 
@@ -76,7 +76,7 @@ class PasswordRequirementsValidator extends ConstraintValidator
                     ->setInvalidValue($value)
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->missingSpecialCharacterMessage, array(), $value);
+                $this->context->addViolation($constraint->missingSpecialCharacterMessage, [], $value);
             }
         }
     }

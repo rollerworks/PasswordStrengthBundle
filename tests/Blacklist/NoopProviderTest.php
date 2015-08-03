@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Blacklist;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Blacklist;
 
 use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\NoopProvider;
 

@@ -60,32 +60,32 @@ class PasswordStrengthValidator extends ConstraintValidator
         if ($passLength < $constraint->minLength) {
             if ($this->context instanceof ExecutionContextInterface) {
                 $this->context->buildViolation($constraint->message)
-                    ->setParameters(array('{{ length }}' => $constraint->minLength))
+                    ->setParameters(['{{ length }}' => $constraint->minLength])
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->message, array('{{ length }}' => $constraint->minLength));
+                $this->context->addViolation($constraint->message, ['{{ length }}' => $constraint->minLength]);
             }
 
             return;
         }
 
         if (preg_match('/[a-zA-Z]/', $password)) {
-            $passwordStrength++;
+            ++$passwordStrength;
             if (preg_match('/[a-z]/', $password) && preg_match('/[A-Z]/', $password)) {
-                $passwordStrength++;
+                ++$passwordStrength;
             }
         }
 
         if (preg_match('/\d+/', $password)) {
-            $passwordStrength++;
+            ++$passwordStrength;
         }
 
         if (preg_match('/[^a-zA-Z0-9]/', $password)) {
-            $passwordStrength++;
+            ++$passwordStrength;
         }
 
         if ($passLength > 12) {
-            $passwordStrength++;
+            ++$passwordStrength;
         }
 
         // No decrease strength on weak combinations
@@ -93,10 +93,10 @@ class PasswordStrengthValidator extends ConstraintValidator
         if ($passwordStrength < $constraint->minStrength) {
             if ($this->context instanceof ExecutionContextInterface) {
                 $this->context->buildViolation($constraint->message)
-                    ->setParameters(array('{{ length }}' => $constraint->minLength))
+                    ->setParameters(['{{ length }}' => $constraint->minLength])
                     ->addViolation();
             } else {
-                $this->context->addViolation($constraint->message, array('{{ length }}' => $constraint->minLength));
+                $this->context->addViolation($constraint->message, ['{{ length }}' => $constraint->minLength]);
             }
         }
     }

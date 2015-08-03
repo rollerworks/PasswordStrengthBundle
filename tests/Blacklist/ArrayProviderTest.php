@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Blacklist;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\Blacklist;
 
 use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider;
 
@@ -17,7 +17,7 @@ class ArrayProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBlackList()
     {
-        $provider = new ArrayProvider(array('test', 'foobar', 0));
+        $provider = new ArrayProvider(['test', 'foobar', 0]);
 
         $this->assertTrue($provider->isBlacklisted('test'));
         $this->assertTrue($provider->isBlacklisted('foobar'));

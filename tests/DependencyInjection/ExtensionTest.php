@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\DependencyInjection;
+namespace Rollerworks\Bundle\PasswordStrengthBundle\tests\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Rollerworks\Bundle\PasswordStrengthBundle\DependencyInjection\RollerworksPasswordStrengthExtension;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\Blacklist as BlacklistConstraint;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class ExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +22,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->createContainer();
         $container->registerExtension(new RollerworksPasswordStrengthExtension());
-        $container->loadFromExtension('rollerworks_password_strength', array());
+        $container->loadFromExtension('rollerworks_password_strength', []);
         $this->compileContainer($container);
 
         $this->assertTrue($container->has('rollerworks_password_strength.blacklist_provider'));
@@ -39,14 +39,14 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->createContainer();
         $container->registerExtension(new RollerworksPasswordStrengthExtension());
-        $container->loadFromExtension('rollerworks_password_strength', array(
-            'blacklist' => array(
+        $container->loadFromExtension('rollerworks_password_strength', [
+            'blacklist' => [
                 'default_provider' => 'rollerworks_password_strength.blacklist.provider.sqlite',
-                'providers' => array(
-                    'sqlite' => array('dsn' => 'sqlite:something')
-                )
-            )
-        ));
+                'providers' => [
+                    'sqlite' => ['dsn' => 'sqlite:something'],
+                ],
+            ],
+        ]);
 
         $this->compileContainer($container);
 
@@ -58,14 +58,14 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->createContainer();
         $container->registerExtension(new RollerworksPasswordStrengthExtension());
-        $container->loadFromExtension('rollerworks_password_strength', array(
-            'blacklist' => array(
+        $container->loadFromExtension('rollerworks_password_strength', [
+            'blacklist' => [
                 'default_provider' => 'rollerworks_password_strength.blacklist.provider.array',
-                'providers' => array(
-                    'array' => array('foo', 'foobar', 'kaboom')
-                )
-            )
-        ));
+                'providers' => [
+                    'array' => ['foo', 'foobar', 'kaboom'],
+                ],
+            ],
+        ]);
 
         $this->compileContainer($container);
 
@@ -83,17 +83,17 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->createContainer();
         $container->registerExtension(new RollerworksPasswordStrengthExtension());
-        $container->loadFromExtension('rollerworks_password_strength', array(
-            'blacklist' => array(
+        $container->loadFromExtension('rollerworks_password_strength', [
+            'blacklist' => [
                 'default_provider' => 'rollerworks_password_strength.blacklist.provider.chain',
-                'providers' => array(
-                    'array' => array('foo', 'foobar', 'kaboom'),
-                    'chain' => array('providers' => array('rollerworks_password_strength.blacklist.provider.array', 'acme.password_blacklist.array')),
-                )
-            )
-        ));
+                'providers' => [
+                    'array' => ['foo', 'foobar', 'kaboom'],
+                    'chain' => ['providers' => ['rollerworks_password_strength.blacklist.provider.array', 'acme.password_blacklist.array']],
+                ],
+            ],
+        ]);
 
-        $container->set('acme.password_blacklist.array', new \Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider(array('amy', 'doctor', 'rory')));
+        $container->set('acme.password_blacklist.array', new \Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider(['amy', 'doctor', 'rory']));
         $this->compileContainer($container);
 
         $this->assertTrue($container->has('rollerworks_password_strength.blacklist_provider'));
@@ -112,11 +112,11 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
      */
     protected function createContainer()
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => __DIR__.'/.cache',
-            'kernel.charset'   => 'UTF-8',
-            'kernel.debug'     => false,
-        )));
+            'kernel.charset' => 'UTF-8',
+            'kernel.debug' => false,
+        ]));
 
         $container->set('service_container', $container);
 
@@ -128,8 +128,8 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
      */
     protected function compileContainer(ContainerBuilder $container)
     {
-        $container->getCompilerPassConfig()->setOptimizationPasses(array());
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setOptimizationPasses([]);
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
         $container->compile();
     }
 }
