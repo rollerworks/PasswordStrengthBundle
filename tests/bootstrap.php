@@ -18,6 +18,6 @@ if (!file_exists(__DIR__.'/../vendor/autoload.php')) {
 }
 
 /**
-* @var $loader ClassLoader
-*/
+ * @var ClassLoader
+ */
 $loader = require __DIR__.'/../vendor/autoload.php';
