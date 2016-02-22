@@ -1,0 +1,64 @@
+---------------------------------------------------------------------------
+
+by sstok at 2015-12-27 11:05
+
+@Soullivaneuh can you have a look at the implementation, and provide some suggestions if you have them? Thanks :+1:
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-12-27 12:46
+
+Added a test to ensure the validator is registered properly (and fixed wrong service-id).
+
+---------------------------------------------------------------------------
+
+by Soullivaneuh at 2016-01-06 10:21
+
+> There is a minor BC break for the translation strings (removed the 'Your' part from the translated string).
+
+Can't find what you're talking about. Can I have a ref link?
+
+I'm not sure for the validator service. Why doing this? Related to translations?
+
+Globally OK for the rest. If you want to compare, you can take a look to my isocodes validator library which handles translations for both Symfony and Silex: https://github.com/Soullivaneuh/IsoCodesValidator
+
+---------------------------------------------------------------------------
+
+by sstok at 2016-01-12 09:36
+
+Sorry for the late reply, I wasn't feeling well last week.
+
+The original message for PasswordRequirement is something like `Your password must include at least one letter.` but the translated version for English is now `Password must include at least one letter.` It's not really a BC break but it is a change output.
+
+*Looking at this, this can be changed to: `Password is not strong enough: - must include at least one letter.` (similar to the PasswordStrength messages)*
+
+The validator injection is because we need to translate the suggestions before passing them as message arguments (but I really hope this is no big problem for other languages that have a more complex syntax).
+
+---------------------------------------------------------------------------
+
+by Soullivaneuh at 2016-01-12 13:04
+
+For message change, not sure it worth it to release a new major about that.
+
+> The validator injection is because we need to translate the suggestions before passing them as message arguments
+
+Sorry but I'm not sure to understand. For my project, I just have to create an integration for both Symfony bundle and Silex.
+
+* https://github.com/Soullivaneuh/IsoCodesValidator/tree/c1b5407c99ae3308bd5d12792db9fd30be2e3a39/src/Bundle
+* https://github.com/Soullivaneuh/IsoCodesValidator/blob/c1b5407c99ae3308bd5d12792db9fd30be2e3a39/src/Provider/IsoCodesValidatorServiceProvider.php
+
+---------------------------------------------------------------------------
+
+by sstok at 2016-02-22 12:34
+
+> "For message change, not sure it worth it to release a new major about that."
+
+Don't worry :) this is a minor release.
+
+---------------------------------------------------------------------------
+
+by sstok at 2016-02-22 12:35
+
+How did that " StyleCI / PHP-CS-Fixer" commit came-in :confused:
+
+Edit. Fixed, rebased on old master branch, rebased on upstream now :walking:
