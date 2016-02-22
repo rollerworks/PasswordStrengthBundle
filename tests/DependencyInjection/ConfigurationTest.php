@@ -53,7 +53,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                         'sqlite' => array('dsn' => 'sqlite:/path/to/the/db/file'),
                         'array' => array(),
                     ),
-                    'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop'
+                    'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop',
                 ),
             )
         );
@@ -76,7 +76,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                     'providers' => array(
                         'array' => array('foo', 'foobar', 'kaboom'),
                     ),
-                    'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop'
+                    'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop',
                 ),
             )
         );
