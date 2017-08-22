@@ -11,20 +11,21 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\DependencyInjection;
 
+use Rollerworks\Component\PasswordStrength\Blacklist\LazyChainProvider;
+use Rollerworks\Component\PasswordStrength\Command\BlacklistListCommand;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
- * {@inheritdoc}
- */
-class RollerworksPasswordStrengthExtension extends Extension
+final class RollerworksPasswordStrengthExtension extends Extension implements PrependExtensionInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
@@ -41,14 +42,30 @@ class RollerworksPasswordStrengthExtension extends Extension
 
         if (isset($config['blacklist']['providers'])) {
             $this->setBlackListProvidersConfiguration($config['blacklist']['providers'], $container);
+            $this->registerBlacklistCommands($container, $config['blacklist']['providers']);
         }
+    }
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig('framework', [
+            'translator' => [
+                'paths' => [
+                    dirname(dirname((new \ReflectionClass(LazyChainProvider::class))->getFileName())).'/Resources/translations',
+                ],
+            ],
+        ]);
     }
 
     private function setBlackListProvidersConfiguration(array $config, ContainerBuilder $container)
     {
         if (isset($config['sqlite'])) {
             $container->setParameter('rollerworks_password_strength.blacklist.sqlite.dsn', $config['sqlite']['dsn']);
-            $container->getDefinition('rollerworks_password_strength.blacklist.provider.sqlite')->setPublic(true);
         }
 
         if (isset($config['array'])) {
@@ -58,8 +75,27 @@ class RollerworksPasswordStrengthExtension extends Extension
         }
 
         if (isset($config['chain'])) {
-            $this->configureChainBlacklistProvider($container, $config);
+            if ($config['chain']['lazy']) {
+                $this->configureLazyChainBlacklistProvider($container, $config);
+            } else {
+                $this->configureChainBlacklistProvider($container, $config);
+            }
         }
+    }
+
+    private function configureLazyChainBlacklistProvider(ContainerBuilder $container, array $config)
+    {
+        $refs = [];
+        $serviceIds = [];
+
+        foreach ($config['chain']['providers'] as $name => $serviceId) {
+            $refs[$serviceId] = new Reference($serviceId);
+            $serviceIds[] = $serviceId;
+        }
+
+        $chainLoader = $container->getDefinition('rollerworks_password_strength.blacklist.provider.chain');
+        $chainLoader->setArguments([ServiceLocatorTagPass::register($container, $refs), $serviceIds]);
+        $chainLoader->setClass(LazyChainProvider::class);
     }
 
     private function configureChainBlacklistProvider(ContainerBuilder $container, array $config)
@@ -68,6 +104,38 @@ class RollerworksPasswordStrengthExtension extends Extension
 
         foreach ($config['chain']['providers'] as $provider) {
             $chainLoader->addMethodCall('addProvider', [new Reference($provider)]);
+        }
+    }
+
+    private function registerBlacklistCommands(ContainerBuilder $container, array $providers)
+    {
+        if (!class_exists(Application::class)) {
+            return;
+        }
+
+        $refs = ['default' => new Reference('rollerworks_password_strength.blacklist_provider')];
+        foreach ($providers as $name => $serviceId) {
+            $refs[$name] = new Reference('rollerworks_password_strength.blacklist.provider.'.$name);
+        }
+        $providersService = ServiceLocatorTagPass::register($container, $refs);
+
+        // To be replaced once https://github.com/symfony/symfony/pull/23834 is merged.
+        $r = $container->getReflectionClass(BlacklistListCommand::class);
+        $namespace = $r->getNamespaceName();
+
+        $finder = (new Finder())
+            ->in(dirname($r->getFileName()))
+            ->name('/.php$/');
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $class = $namespace.'\\'.$file->getBasename('.php');
+
+            $container->addObjectResource($class);
+            $container->register($class, $class)
+                ->addTag('console.command')
+                ->addArgument($providersService)
+            ;
         }
     }
 }
