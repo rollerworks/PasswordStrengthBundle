@@ -11,71 +11,13 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints;
 
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirementsValidator as BasePasswordRequirementsValidator;
 
-class PasswordRequirementsValidator extends ConstraintValidator
+/**
+ * @Annotation
+ *
+ * @deprecated since 1.7, to be removed in 2.0. Use {@link BasePasswordRequirements} instead.
+ */
+class PasswordRequirementsValidator extends BasePasswordRequirementsValidator
 {
-    /**
-     * @param string                          $value
-     * @param PasswordRequirements|Constraint $constraint
-     */
-    public function validate($value, Constraint $constraint)
-    {
-        if (null === $value || '' === $value) {
-            return;
-        }
-
-        if ($constraint->minLength > 0 && (mb_strlen($value) < $constraint->minLength)) {
-            if ($this->context instanceof ExecutionContextInterface) {
-                $this->context->buildViolation($constraint->tooShortMessage)
-                    ->setParameters(array('{{length}}' => $constraint->minLength))
-                    ->setInvalidValue($value)
-                    ->addViolation();
-            } else {
-                $this->context->addViolation($constraint->tooShortMessage, array('{{length}}' => $constraint->minLength), $value);
-            }
-        }
-
-        if ($constraint->requireLetters && !preg_match('/\pL/u', $value)) {
-            if ($this->context instanceof ExecutionContextInterface) {
-                $this->context->buildViolation($constraint->missingLettersMessage)
-                    ->setInvalidValue($value)
-                    ->addViolation();
-            } else {
-                $this->context->addViolation($constraint->missingLettersMessage, array(), $value);
-            }
-        }
-
-        if ($constraint->requireCaseDiff && !preg_match('/(\p{Ll}+.*\p{Lu})|(\p{Lu}+.*\p{Ll})/u', $value)) {
-            if ($this->context instanceof ExecutionContextInterface) {
-                $this->context->buildViolation($constraint->requireCaseDiffMessage)
-                    ->setInvalidValue($value)
-                    ->addViolation();
-            } else {
-                $this->context->addViolation($constraint->requireCaseDiffMessage, array(), $value);
-            }
-        }
-
-        if ($constraint->requireNumbers && !preg_match('/\pN/u', $value)) {
-            if ($this->context instanceof ExecutionContextInterface) {
-                $this->context->buildViolation($constraint->missingNumbersMessage)
-                    ->setInvalidValue($value)
-                    ->addViolation();
-            } else {
-                $this->context->addViolation($constraint->missingNumbersMessage, array(), $value);
-            }
-        }
-
-        if ($constraint->requireSpecialCharacter && !preg_match('/[^p{Ll}\p{Lu}\pL\pN]/u', $value)) {
-            if ($this->context instanceof ExecutionContextInterface) {
-                $this->context->buildViolation($constraint->missingSpecialCharacterMessage)
-                    ->setInvalidValue($value)
-                    ->addViolation();
-            } else {
-                $this->context->addViolation($constraint->missingSpecialCharacterMessage, array(), $value);
-            }
-        }
-    }
 }

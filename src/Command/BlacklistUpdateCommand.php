@@ -11,7 +11,7 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Command;
 
-use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider;
+use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

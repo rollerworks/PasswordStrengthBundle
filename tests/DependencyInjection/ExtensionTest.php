@@ -13,13 +13,19 @@ namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Rollerworks\Bundle\PasswordStrengthBundle\DependencyInjection\RollerworksPasswordStrengthExtension;
+use Rollerworks\Component\PasswordStrength\Blacklist\ArrayProvider;
+use Rollerworks\Component\PasswordStrength\Blacklist\ChainProvider;
+use Rollerworks\Component\PasswordStrength\Blacklist\NoopProvider;
+use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\Blacklist as BlacklistConstraint;
-use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\Blacklist;
-use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordStrength;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist as NewBlacklistConstraint;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrength;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddConstraintValidatorsPass as LegacyAddConstraintValidatorsPass;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrengthValidator;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\BlacklistValidator;
 
 class ExtensionTest extends AbstractExtensionTestCase
 {
@@ -31,10 +37,13 @@ class ExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('rollerworks_password_strength.blacklist.validator');
         $this->assertContainerBuilderHasService(
             'rollerworks_password_strength.blacklist_provider',
-            'Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\NoopProvider'
+            NoopProvider::class
         );
 
         $constraint = new BlacklistConstraint();
+        $this->assertContainerBuilderHasService($constraint->validatedBy());
+
+        $constraint = new NewBlacklistConstraint();
         $this->assertContainerBuilderHasService($constraint->validatedBy());
     }
 
@@ -54,7 +63,7 @@ class ExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('rollerworks_password_strength.blacklist.validator');
         $this->assertContainerBuilderHasService(
             'rollerworks_password_strength.blacklist_provider',
-            'Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider'
+            SqliteProvider::class
         );
     }
 
@@ -74,7 +83,7 @@ class ExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('rollerworks_password_strength.blacklist.validator');
         $this->assertContainerBuilderHasService(
             'rollerworks_password_strength.blacklist_provider',
-            'Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider'
+            ArrayProvider::class
         );
 
         $provider = $this->container->get('rollerworks_password_strength.blacklist_provider');
@@ -104,7 +113,7 @@ class ExtensionTest extends AbstractExtensionTestCase
 
         $this->container->set(
             'acme.password_blacklist.array',
-            new \Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ArrayProvider(array('amy', 'doctor', 'rory'))
+            new ArrayProvider(array('amy', 'doctor', 'rory'))
         );
 
         $this->compile();
@@ -112,7 +121,7 @@ class ExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('rollerworks_password_strength.blacklist.validator');
         $this->assertContainerBuilderHasService(
             'rollerworks_password_strength.blacklist_provider',
-            'Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\ChainProvider'
+            ChainProvider::class
         );
 
         $provider = $this->container->get('rollerworks_password_strength.blacklist_provider');
@@ -142,8 +151,9 @@ class ExtensionTest extends AbstractExtensionTestCase
         /** @var ConstraintValidatorFactory $factory */
         $factory = $this->container->get('validator.validator_factory');
 
-        self::assertInstanceOf('Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordStrengthValidator', $factory->getInstance(new PasswordStrength(array('minStrength' => 1))));
-        self::assertInstanceOf('Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\BlacklistValidator', $factory->getInstance(new Blacklist()));
+        self::assertInstanceOf(PasswordStrengthValidator::class, $factory->getInstance(new PasswordStrength(array('minStrength' => 1))));
+        self::assertInstanceOf(BlacklistValidator::class, $factory->getInstance(new BlacklistConstraint()));
+        self::assertInstanceOf(BlacklistValidator::class, $factory->getInstance(new NewBlacklistConstraint()));
     }
 
     protected function getContainerExtensions()

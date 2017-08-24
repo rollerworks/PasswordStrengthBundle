@@ -11,19 +11,17 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Blacklist;
 
+use Rollerworks\Component\PasswordStrength\Blacklist\BlacklistProviderInterface as BaseBlacklistProviderInterface;
+
+@trigger_error(sprintf('The %s is deprecated since version 1.7 and will be removed in 2.0. Use %s instead.', BlacklistProviderInterface::class, BaseBlacklistProviderInterface::class), E_USER_DEPRECATED);
+
 /**
  * Blacklist Provider Interface.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * @deprecated since 1.7, to be removed in 2.0. Use {@link BaseBlacklistProviderInterface} instead.
  */
-interface BlacklistProviderInterface
+interface BlacklistProviderInterface extends BaseBlacklistProviderInterface
 {
-    /**
-     * Returns whether the provided password is blacklisted.
-     *
-     * @param string $password
-     *
-     * @return bool
-     */
-    public function isBlacklisted($password);
 }

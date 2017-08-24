@@ -11,22 +11,16 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints;
 
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements as BasePasswordRequirements;
 use Symfony\Component\Validator\Constraint;
+
+@trigger_error(sprintf('The %s class is deprecated since version 1.7 and will be removed in 2.0. Use %s instead.', PasswordRequirements::class, BasePasswordRequirements::class), E_USER_DEPRECATED);
 
 /**
  * @Annotation
+ *
+ * @deprecated since 1.7, to be removed in 2.0. Use {@link BasePasswordRequirements} instead.
  */
-class PasswordRequirements extends Constraint
+class PasswordRequirements extends BasePasswordRequirements
 {
-    public $tooShortMessage = 'Your password must be at least {{length}} characters long.';
-    public $missingLettersMessage = 'Your password must include at least one letter.';
-    public $requireCaseDiffMessage = 'Your password must include both upper and lower case letters.';
-    public $missingNumbersMessage = 'Your password must include at least one number.';
-    public $missingSpecialCharacterMessage = 'Your password must contain at least one special character.';
-
-    public $minLength = 6;
-    public $requireLetters = true;
-    public $requireCaseDiff = false;
-    public $requireNumbers = false;
-    public $requireSpecialCharacter = false;
 }
