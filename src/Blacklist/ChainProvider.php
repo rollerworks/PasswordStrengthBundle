@@ -11,73 +11,17 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Blacklist;
 
+use Rollerworks\Component\PasswordStrength\Blacklist\ChainProvider as BaseChainProvider;
+
+@trigger_error(sprintf('The %s class is deprecated since version 1.7 and will be removed in 2.0. Use %s instead.', ChainProvider::class, BaseChainProvider::class), E_USER_DEPRECATED);
+
 /**
  * Chained blacklist provider.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * @deprecated since 1.7, to be removed in 2.0. Use {@link BaseChainProvider} instead.
  */
-class ChainProvider implements BlacklistProviderInterface
+class ChainProvider extends BaseChainProvider implements BlacklistProviderInterface
 {
-    /**
-     * @var BlacklistProviderInterface[]
-     */
-    private $providers;
-
-    /**
-     * Constructor.
-     *
-     * @param BlacklistProviderInterface[] $providers
-     */
-    public function __construct(array $providers = array())
-    {
-        foreach ($providers as $provider) {
-            $this->addProvider($provider);
-        }
-    }
-
-    /**
-     * Adds a new blacklist provider.
-     *
-     * @param BlacklistProviderInterface $provider
-     *
-     * @throws \RuntimeException
-     *
-     * @return self
-     */
-    public function addProvider(BlacklistProviderInterface $provider)
-    {
-        if ($provider === $this) {
-            throw new \RuntimeException('Unable to add ChainProvider to itself.');
-        }
-
-        $this->providers[] = $provider;
-
-        return $this;
-    }
-
-    /**
-     * Returns all the registered providers.
-     *
-     * @return BlacklistProviderInterface[]
-     */
-    public function getProviders()
-    {
-        return $this->providers;
-    }
-
-    /**
-     * Runs trough all the providers until one returns true.
-     *
-     * {@inheritdoc}
-     */
-    public function isBlacklisted($password)
-    {
-        foreach ($this->providers as $provider) {
-            if (true === $provider->isBlacklisted($password)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

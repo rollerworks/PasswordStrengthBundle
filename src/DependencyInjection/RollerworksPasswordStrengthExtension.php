@@ -58,11 +58,16 @@ class RollerworksPasswordStrengthExtension extends Extension
         }
 
         if (isset($config['chain'])) {
-            $chainLoader = $container->getDefinition('rollerworks_password_strength.blacklist.provider.chain');
+            $this->configureChainBlacklistProvider($container, $config);
+        }
+    }
 
-            foreach ($config['chain']['providers'] as $provider) {
-                $chainLoader->addMethodCall('addProvider', array(new Reference($provider)));
-            }
+    private function configureChainBlacklistProvider(ContainerBuilder $container, array $config)
+    {
+        $chainLoader = $container->getDefinition('rollerworks_password_strength.blacklist.provider.chain');
+
+        foreach ($config['chain']['providers'] as $provider) {
+            $chainLoader->addMethodCall('addProvider', [new Reference($provider)]);
         }
     }
 }

@@ -11,6 +11,10 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Blacklist;
 
+use Rollerworks\Component\PasswordStrength\Blacklist\UpdatableBlacklistProviderInterface;
+
+@trigger_error(sprintf('The %s is deprecated since version 1.7 and will be removed in 2.0. Use %s instead.', ImmutableBlacklistProviderInterface::class, UpdatableBlacklistProviderInterface::class), E_USER_DEPRECATED);
+
 /**
  * Immutable Blacklist Provider Interface.
  *
@@ -19,8 +23,7 @@ namespace Rollerworks\Bundle\PasswordStrengthBundle\Blacklist;
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  *
- * @deprecated This class is deprecated and will be removed in version 2.0
- *  use the UpdatableBlacklistProviderInterface instead.
+ * @deprecated since 1.1, to be removed in 2.0. Use {@link \Rollerworks\Component\PasswordStrength\Blacklist\UpdatableBlacklistProviderInterface} instead.
  */
 interface ImmutableBlacklistProviderInterface extends BlacklistProviderInterface
 {

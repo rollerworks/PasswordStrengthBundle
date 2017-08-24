@@ -12,7 +12,7 @@
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Tests\Command;
 
 use PHPUnit\Framework\TestCase;
-use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider;
+use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Symfony\Component\DependencyInjection\Container;
 
 abstract class BlacklistCommandTestCase extends TestCase
