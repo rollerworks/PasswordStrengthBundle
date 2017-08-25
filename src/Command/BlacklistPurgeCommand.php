@@ -11,7 +11,7 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Command;
 
-use Symfony\Component\Console\Helper\DialogHelper;
+use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -37,20 +37,15 @@ class BlacklistPurgeCommand extends BlacklistCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var \Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider $service */
+        /** @var SqliteProvider $service */
         $service = $this->getContainer()->get('rollerworks_password_strength.blacklist.provider.sqlite');
 
         if (!$input->getOption('no-ask')) {
-            // Symfony <2.5 BC
-            /** @var QuestionHelper|DialogHelper $questionHelper */
-            $questionHelper = $this->getHelperSet()->has('question') ? $this->getHelperSet()->get('question') : $this->getHelperSet()->get('dialog');
+            /** @var QuestionHelper $questionHelper */
+            $questionHelper = $this->getHelperSet()->get('question');
 
-            if ($questionHelper instanceof QuestionHelper) {
-                $question = new ConfirmationQuestion('<question>This will remove all the passwords from your blacklist database!!, continue?</question>', false);
-                $confirmed = $questionHelper->ask($input, $output, $question);
-            } else {
-                $confirmed = $questionHelper->askConfirmation($output, '<question>This will remove all the passwords from your blacklist database!!, continue?</question>', false);
-            }
+            $question = new ConfirmationQuestion('<question>This will remove all the passwords from your blacklist database!!, continue?</question>', false);
+            $confirmed = $questionHelper->ask($input, $output, $question);
 
             if (!$confirmed) {
                 return;

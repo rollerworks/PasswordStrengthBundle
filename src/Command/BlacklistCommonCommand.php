@@ -11,7 +11,7 @@
 
 namespace Rollerworks\Bundle\PasswordStrengthBundle\Command;
 
-use Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider;
+use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -30,7 +30,7 @@ abstract class BlacklistCommonCommand extends BlacklistCommand
             return;
         }
 
-        /** @var \Rollerworks\Bundle\PasswordStrengthBundle\Blacklist\SqliteProvider $service */
+        /** @var SqliteProvider $service */
         $service = $this->getContainer()->get('rollerworks_password_strength.blacklist.provider.sqlite');
 
         if ($input->getOption('file')) {
