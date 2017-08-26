@@ -16,7 +16,7 @@ cache:
         - $HOME/.composer/cache
 
 before_install:
-    - config-rm xdebug.ini || echo "xdebug not available"
+    - phpenv config-rm xdebug.ini || echo "xdebug not available"
 
 install:
     - if [ "$DEPENDENCIES" == "dev" ]; then composer config minimum-stability dev; fi;
@@ -24,6 +24,7 @@ install:
     - if [ "$DEPENDENCIES" == "low" ]; then composer update --prefer-dist --no-progress --no-suggest --ansi --prefer-lowest; fi;
 
 script:
+    - export SYMFONY_PHPUNIT_VERSION=5.7.19
     - export SYMFONY_PHPUNIT_REMOVE="symfony/yaml"
     - export SYMFONY_DEPRECATIONS_HELPER=weak
     - if [ "$DEPENDENCIES" == "dev" ]; then vendor/bin/simple-phpunit --verbose --exclude-group legacy; fi
