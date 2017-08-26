@@ -26,5 +26,5 @@ install:
 script:
     - export SYMFONY_PHPUNIT_VERSION=5.7.19
     - export SYMFONY_PHPUNIT_REMOVE="symfony/yaml"
-    - export SYMFONY_DEPRECATIONS_HELPER=loose
+    - export SYMFONY_DEPRECATIONS_HELPER=weak
     - vendor/bin/simple-phpunit --verbose
