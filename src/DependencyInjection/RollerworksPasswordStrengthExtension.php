@@ -125,7 +125,10 @@ final class RollerworksPasswordStrengthExtension extends Extension implements Pr
 
         $finder = (new Finder())
             ->in(dirname($r->getFileName()))
-            ->name('/.php$/');
+            ->name('/\.php$/')
+            ->notName('/BlacklistCommand.php$/')
+            ->notName('/BlacklistCommonCommand\.php$/')
+        ;
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {

@@ -18,6 +18,8 @@ use Rollerworks\Component\PasswordStrength\Blacklist\ChainProvider;
 use Rollerworks\Component\PasswordStrength\Blacklist\LazyChainProvider;
 use Rollerworks\Component\PasswordStrength\Blacklist\NoopProvider;
 use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
+use Rollerworks\Component\PasswordStrength\Command\BlacklistCommand;
+use Rollerworks\Component\PasswordStrength\Command\BlacklistCommonCommand;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist as BlacklistConstraint;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\BlacklistValidator;
@@ -195,6 +197,8 @@ class ExtensionTest extends AbstractExtensionTestCase
 
         // No need to test all commands.
         $this->assertContainerBuilderHasServiceDefinitionWithTag(BlacklistListCommand::class, 'console.command');
+        $this->assertContainerBuilderNotHasService(BlacklistCommand::class);
+        $this->assertContainerBuilderNotHasService(BlacklistCommonCommand::class);
         $command = $this->container->findDefinition(BlacklistListCommand::class);
         /** @var ServiceLocator $argument */
         $argument = $this->container->get((string) $command->getArgument(0));
