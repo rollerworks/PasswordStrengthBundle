@@ -1,10 +1,9 @@
 RollerworksPasswordStrengthBundle
 =================================
 
-This bundle provides a validator for ensuring strong passwords in Symfony2 applications.
+This Symfony-bundle integrates the Rollerworks [PasswordStrengthValidator][1] into your Symfony application.
 
-Passwords can be validated using either strength-levels (weak, medium, strong etc)
-or by configuring explicit requirements (needs letters, numbers etc)
+_The PasswordStrengthValidator provides various password strength validators for the Symfony Validator._
 
 > This bundle provides the same level of functionality as the
 > [PasswordStrengthBundle](https://github.com/jbafford/PasswordStrengthBundle) created by John Bafford.
@@ -12,18 +11,18 @@ or by configuring explicit requirements (needs letters, numbers etc)
 
 ## Installation
 
-### Step 1: Using Composer (recommended)
-
-To install RollerworksPasswordStrengthBundle with Composer just run:
+To install this package, add `rollerworks/password-strength-bundle` to your composer.json:
 
 ```bash
 $ php composer.phar require rollerworks/password-strength-bundle
 ```
 
-Now, Composer will automatically download all required files, and install them
+Now, [Composer][2] will automatically download all required files, and install them
 for you.
 
 ### Step2: Enable the bundle
+
+**Note:** This step is **not** required for Symfony Flex.
 
 Enable the bundle in the kernel:
 
@@ -31,45 +30,54 @@ Enable the bundle in the kernel:
 <?php
 
 // in AppKernel::registerBundles()
-$bundles = array(
+$bundles = [
     // ...
     new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
     // ...
-);
+];
 ```
+
+## Requirements
+
+You need at least PHP 5.6 or PHP 7.0, mbstring is recommended but not required.
+For the provided blacklist providers you may need SQLite3 or a PDO compatible driver.
 
 Congratulations! You're ready!
 
 ## Basic Usage
 
-**Caution:**
+Documentation for the various constraints can be found in the [PasswordStrengthValidator][1] package.
+See the [bundle reference configuration](docs/configuration.md) to configure usage with this bundle.
 
-> The password validators do not enforce that the field must have a value!
-> To make a field "required" use the [NotBlank constraint](http://symfony.com/doc/current/reference/constraints/NotBlank.html)
-> in combination with the password validator(s).
+## Versioning
 
-### [Strength validation](docs/strength-validation.md)
+For transparency and insight into the release cycle, and for striving
+to maintain backward compatibility, this package is maintained under
+the Semantic Versioning guidelines as much as possible.
 
-Validates the passwords strength-level (weak, medium, strong etc).
+Releases will be numbered with the following format:
 
-### [Requirements validation](docs/requirements-validation.md)
+`<major>.<minor>.<patch>`
 
-Validates the passwords using explicitly configured requirements (letters, caseDiff, numbers, requireSpecialCharacter).
+And constructed with the following guidelines:
 
-### [Password blacklisting](docs/blacklist.md)
+* Breaking backward compatibility bumps the major (and resets the minor and patch)
+* New additions without breaking backward compatibility bumps the minor (and resets the patch)
+* Bug fixes and misc changes bumps the patch
 
-There are times you want forbid (blacklist) a password from usage.
+For more information on SemVer, please visit <http://semver.org/>.
 
-Passwords are blacklisted using providers which can either an array or
-(flat-file) database (which you can update regularly).
+## License
 
-With the default installation the following providers can be used.
+This library is released under the [MIT license](LICENSE).
 
-* Noop: Default provider, does nothing.
-* Array: Simple in memory blacklist provider (not recommended for big lists)
-* Sqlite: Provides the blacklist using a SQLite3 database file.
-* Pdo: Provides the blacklist using the PDO extension.
+## Contributing
 
-But building your own is also possible.
-__Documentation on this is currently missing,
-see current providers for more information.__
+This is an open source project. If you'd like to contribute,
+please read the [Contributing Guidelines][3]. If you're submitting
+a pull request, please follow the guidelines in the [Submitting a Patch][4] section.
+
+[1]: https://github.com/rollerworks/PasswordStrengthValidator
+[2]: https://getcomposer.org/doc/00-intro.md
+[3]: https://github.com/rollerworks/contributing
+[4]: https://contributing.readthedocs.org/en/latest/code/patches.html

@@ -24,95 +24,97 @@ class ConfigurationTest extends AbstractConfigurationTestCase
     public function testNoBlacklistProvidersConfiguredByDefault()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array(),
-            ),
-            array(
-                'blacklist' => array(
+            [
+                [],
+            ],
+            [
+                'blacklist' => [
                     'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop',
-                ),
-            )
+                ],
+            ]
         );
     }
 
     public function testSqlLiteBlacklistProviderIsConfigured()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array(
-                    'blacklist' => array(
-                        'providers' => array(
-                            'sqlite' => array('dsn' => 'sqlite:/path/to/the/db/file'),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'blacklist' => array(
-                    'providers' => array(
-                        'sqlite' => array('dsn' => 'sqlite:/path/to/the/db/file'),
-                        'array' => array(),
-                    ),
+            [
+                [
+                    'blacklist' => [
+                        'providers' => [
+                            'sqlite' => ['dsn' => 'sqlite:/path/to/the/db/file'],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'blacklist' => [
+                    'providers' => [
+                        'sqlite' => ['dsn' => 'sqlite:/path/to/the/db/file'],
+                        'array' => [],
+                    ],
                     'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop',
-                ),
-            )
+                ],
+            ]
         );
     }
 
     public function testArrayBlacklistProviderIsConfigured()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array(
-                    'blacklist' => array(
-                        'providers' => array(
-                            'array' => array('foo', 'foobar', 'kaboom'),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'blacklist' => array(
-                    'providers' => array(
-                        'array' => array('foo', 'foobar', 'kaboom'),
-                    ),
+            [
+                [
+                    'blacklist' => [
+                        'providers' => [
+                            'array' => ['foo', 'foobar', 'kaboom'],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'blacklist' => [
+                    'providers' => [
+                        'array' => ['foo', 'foobar', 'kaboom'],
+                    ],
                     'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop',
-                ),
-            )
+                ],
+            ]
         );
     }
 
     public function testConfigChain()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array(
-                    'blacklist' => array(
-                        'providers' => array(
-                            'chain' => array(
-                                'providers' => array(
+            [
+                [
+                    'blacklist' => [
+                        'providers' => [
+                            'chain' => [
+                                'lazy' => false,
+                                'providers' => [
                                     'rollerworks_password_strength.blacklist.provider.array',
                                     'rollerworks_password_strength.blacklist.provider.sqlite',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'blacklist' => array(
-                    'providers' => array(
-                        'chain' => array(
-                            'providers' => array(
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'blacklist' => [
+                    'providers' => [
+                        'chain' => [
+                            'lazy' => false,
+                            'providers' => [
                                 'rollerworks_password_strength.blacklist.provider.array',
                                 'rollerworks_password_strength.blacklist.provider.sqlite',
-                            ),
-                        ),
-                        'array' => array(),
-                    ),
+                            ],
+                        ],
+                        'array' => [],
+                    ],
                     'default_provider' => 'rollerworks_password_strength.blacklist.provider.noop',
-                ),
-            )
+                ],
+            ]
         );
     }
 }

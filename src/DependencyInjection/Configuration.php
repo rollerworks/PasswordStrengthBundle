@@ -14,14 +14,8 @@ namespace Rollerworks\Bundle\PasswordStrengthBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * {@inheritdoc}
- */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
@@ -44,6 +38,7 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                                 ->arrayNode('chain')
                                     ->children()
+                                        ->booleanNode('lazy')->defaultFalse()->end()
                                         ->arrayNode('providers')
                                             ->fixXmlConfig('provider')
                                             ->prototype('scalar')->end()

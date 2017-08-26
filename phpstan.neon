@@ -1,0 +1,7 @@
+parameters:
+    autoload_files:
+        - vendor/autoload.php
+        - vendor/symfony/phpunit-bridge/bin/.phpunit/phpunit-5.7.19/vendor/autoload.php
+
+    ignoreErrors:
+        - '#Class Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage not found and could not be autoloaded#'
