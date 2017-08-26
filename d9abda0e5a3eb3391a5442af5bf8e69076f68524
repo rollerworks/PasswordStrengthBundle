@@ -1,0 +1,76 @@
+---------------------------------------------------------------------------
+
+by sstok at 2017-08-22T14:32:38Z
+
+Note, there are some minor style issues (final for tests and missing `@internal` markers) but this can be fixed later. This pull-request is already very big.
+
+---------------------------------------------------------------------------
+
+by cordoval at 2017-08-23T05:16:11Z
+
+why adding too much stuff into a PR?
+
+can you send separate PRs that can be easily merged and are non breaking?
+
+like:
+
+- removing tests
+- running cs
+- doing actual changes
+- other mods that are BC or are easily merged on current version without breaking anything
+
+---------------------------------------------------------------------------
+
+by sstok at 2017-08-23T14:08:53Z
+
+I did some minor work in other pull requests. This pull request is best viewed as separate commits.
+
+It's not possible to further reduce the changes into smaller pull request as the split library has a number of other changes (to enhance lazy loading) which requires integration in the bundle.
+
+---------------------------------------------------------------------------
+
+by stof at 2017-08-23T16:31:56Z
+
+@sstok what about providing a continuous migration path: first convert class of the bundle to deprecated classes extending the library ones in 1.x (to allow people to migrate their annotations based on deprecation warnings), and then doing the removal of old annotations in 2.0 ?
+
+---------------------------------------------------------------------------
+
+by sstok at 2017-08-24T07:38:02Z
+
+> @sstok what about providing a continuous migration path: first convert class of the bundle to deprecated classes extending the library ones in 1.x (to allow people to migrate their annotations based on deprecation warnings), and then doing the removal of old annotations in 2.0 ?
+
+Good point, v1.5 can still be used for Symfony 2.3 but in 1.7 we can bump the requirement for Symfony to 2.8 (last LTS) and PHP 5.6 (last supported PHP 5 version).
+
+Thanks for the suggestion, I will get started with it 👍
+
+---------------------------------------------------------------------------
+
+by sstok at 2017-08-24T13:45:54Z
+
+Version 1.7 ( #83 ) has been released to allow a smooth transition to 2.0.
+
+Unless there any other comments I can merge this one today and tag 2.0.0 👍
+
+---------------------------------------------------------------------------
+
+by stof at 2017-08-24T18:23:17Z
+
+@sstok you should first merge 1.x into master and then rebase this branch. Otherwise, you'll get conflicts.
+
+---------------------------------------------------------------------------
+
+by cordoval at 2017-08-24T18:24:16Z
+
+@sstok something i would like to have addressed is documentation to migrate and also understand the inner things. Otherwise is going to force me to rip off the classes or stick to the old version. thanks. Would be ideal to have this addressed before the merge.
+
+---------------------------------------------------------------------------
+
+by stof at 2017-08-24T18:26:09Z
+
+@cordoval the UPGRADE file is part of this PR.
+
+---------------------------------------------------------------------------
+
+by sstok at 2017-08-25T09:04:05Z
+
+Please review, I also fixed some minor errors in the documentation.
