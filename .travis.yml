@@ -25,7 +25,7 @@ before_install:
 install:
     - if [ "$DEPENDENCIES" == "dev" ]; then composer config minimum-stability dev; fi;
     - if [ "$DEPENDENCIES" != "low" ]; then composer update --prefer-dist --no-progress --no-suggest --ansi; fi;
-    - if [ "$DEPENDENCIES" == "low" ]; then composer update --prefer-dist --no-progress --no-suggest --ansi --prefer-lowest; fi;
+    - if [ "$DEPENDENCIES" == "low" ]; then composer install --prefer-dist --no-progress --no-suggest --ansi && composer update --prefer-dist --no-progress --no-suggest --ansi --prefer-lowest; fi;
 
 script:
     - export SYMFONY_PHPUNIT_VERSION=5.7.19
