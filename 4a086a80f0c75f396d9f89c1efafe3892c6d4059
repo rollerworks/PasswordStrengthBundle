@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by stof at 2017-09-05T16:25:10Z
+
+Note that the BlacklistValidator was defined properly.
+
+---------------------------------------------------------------------------
+
+by stof at 2017-09-05T16:42:53Z
+
+to be clear (even though the github UI already says it in small), this is a bug fix for 1.7 (2.0 already has a working service)
+
+---------------------------------------------------------------------------
+
+by sstok at 2017-09-05T17:29:55Z
+
+Good catch @stof
