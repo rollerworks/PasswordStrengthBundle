@@ -14,6 +14,7 @@ namespace Rollerworks\Bundle\PasswordStrengthBundle\DependencyInjection;
 use Rollerworks\Component\PasswordStrength\Blacklist\LazyChainProvider;
 use Rollerworks\Component\PasswordStrength\Command\BlacklistListCommand;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -119,8 +120,8 @@ final class RollerworksPasswordStrengthExtension extends Extension implements Pr
         }
         $providersService = ServiceLocatorTagPass::register($container, $refs);
 
-        // To be replaced once https://github.com/symfony/symfony/pull/23834 is merged.
-        $r = $container->getReflectionClass(BlacklistListCommand::class);
+        $r = new \ReflectionClass(BlacklistListCommand::class);
+        $container->addResource(new DirectoryResource(dirname($r->getFileName())));
         $namespace = $r->getNamespaceName();
 
         $finder = (new Finder())
@@ -134,7 +135,6 @@ final class RollerworksPasswordStrengthExtension extends Extension implements Pr
         foreach ($finder as $file) {
             $class = $namespace.'\\'.$file->getBasename('.php');
 
-            $container->addObjectResource($class);
             $container->register($class, $class)
                 ->addTag('console.command')
                 ->addArgument($providersService)
