@@ -34,6 +34,13 @@ use Rollerworks\Component\PasswordStrength\Command\BlacklistListCommand;
 
 class ExtensionTest extends AbstractExtensionTestCase
 {
+    protected function load(array $configurationValues = [])
+    {
+        parent::load($configurationValues);
+
+        $this->container->getAlias('rollerworks_password_strength.blacklist_provider')->setPublic(true);
+    }
+
     public function testLoadDefaultConfiguration()
     {
         $this->load();
@@ -161,7 +168,9 @@ class ExtensionTest extends AbstractExtensionTestCase
     public function testPasswordValidatorsAreRegistered()
     {
         $this->container->addCompilerPass(new AddConstraintValidatorsPass());
-        $this->container->register('validator.validator_factory', ContainerConstraintValidatorFactory::class)->setArguments([new Reference('service_container'), []]);
+        $this->container->register('validator.validator_factory', ContainerConstraintValidatorFactory::class)
+            ->setPublic(true)
+            ->setArguments([new Reference('service_container'), []]);
 
         $this->load();
         $this->compile();
