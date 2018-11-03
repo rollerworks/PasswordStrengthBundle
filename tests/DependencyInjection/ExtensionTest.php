@@ -21,11 +21,11 @@ use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Rollerworks\Component\PasswordStrength\Command\BlacklistCommand;
 use Rollerworks\Component\PasswordStrength\Command\BlacklistCommonCommand;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist as BlacklistConstraint;
-use Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\BlacklistValidator;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrength;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrengthValidator;
 use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Validator\ContainerConstraintValidatorFactory;
@@ -39,6 +39,7 @@ class ExtensionTest extends AbstractExtensionTestCase
         parent::load($configurationValues);
 
         $this->container->getAlias('rollerworks_password_strength.blacklist_provider')->setPublic(true);
+        $this->container->getCompiler()->addPass(new MakeAllServicesPublicPass(), PassConfig::TYPE_OPTIMIZE);
     }
 
     public function testLoadDefaultConfiguration()
