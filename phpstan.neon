@@ -1,8 +1,7 @@
 parameters:
     autoload_files:
         - vendor/autoload.php
-        - vendor/symfony/phpunit-bridge/bin/.phpunit/phpunit-5.7.19/vendor/autoload.php
+        - vendor/bin/.phpunit/phpunit-7.5.6/vendor/autoload.php
 
     ignoreErrors:
-        - '#Class Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage not found and could not be autoloaded#'
-        - '#Class Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder does not have a constructor and must be instantiated without any parameters#'
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::addDefaultsIfNotSet().#'
