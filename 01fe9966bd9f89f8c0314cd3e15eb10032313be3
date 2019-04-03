@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by vkhramtsov at 2019-03-28T16:26:48Z
+
+@sstok I would like to update minimum requirement for symfony 4 to symfony 4.1 due to https://symfony.com/roadmap/4.1 here and in https://github.com/rollerworks/PasswordStrengthValidator. What do you think about this?
+
+---------------------------------------------------------------------------
+
+by vkhramtsov at 2019-03-29T18:17:17Z
+
+@sstok Changed configuration of phpstan a little bit. Looks like now this PR is ready for review
+
+---------------------------------------------------------------------------
+
+by sstok at 2019-04-03T07:30:17Z
+
+Thank you @vkhramtsov
