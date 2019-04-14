@@ -19,7 +19,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('rollerworks_password_strength');
-        $rootNode = $treeBuilder->root('rollerworks_password_strength'); // BC for Symfony < 4.2
+
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC for Symfony < 4.2
+            $rootNode = $treeBuilder->root('rollerworks_password_strength');
+        }
 
         $rootNode
             ->addDefaultsIfNotSet()
