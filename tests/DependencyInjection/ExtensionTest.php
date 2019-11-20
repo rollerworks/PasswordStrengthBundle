@@ -20,6 +20,7 @@ use Rollerworks\Component\PasswordStrength\Blacklist\NoopProvider;
 use Rollerworks\Component\PasswordStrength\Blacklist\SqliteProvider;
 use Rollerworks\Component\PasswordStrength\Command\BlacklistCommand;
 use Rollerworks\Component\PasswordStrength\Command\BlacklistCommonCommand;
+use Rollerworks\Component\PasswordStrength\Command\BlacklistListCommand;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist as BlacklistConstraint;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\BlacklistValidator;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrength;
@@ -30,7 +31,6 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Validator\ContainerConstraintValidatorFactory;
 use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass;
-use Rollerworks\Component\PasswordStrength\Command\BlacklistListCommand;
 
 class ExtensionTest extends AbstractExtensionTestCase
 {
@@ -188,6 +188,11 @@ class ExtensionTest extends AbstractExtensionTestCase
         if (!class_exists(Application::class)) {
             $this->markTestSkipped('Needs the Symfony/console component');
         }
+
+        $this->container->set(
+            'acme.password_blacklist.array',
+            new ArrayProvider(['amy', 'doctor', 'rory'])
+        );
 
         $this->load([
             'blacklist' => [

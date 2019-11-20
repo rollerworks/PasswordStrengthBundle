@@ -1,8 +1,13 @@
 {
     "name": "rollerworks/password-strength-bundle",
-    "description": "Password-strength validator bundle for Symfony",
-    "keywords": ["password", "validator", "symfony", "bundle"],
     "type": "symfony-bundle",
+    "description": "Password-strength validator bundle for Symfony",
+    "keywords": [
+        "password",
+        "validator",
+        "symfony",
+        "bundle"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -20,30 +25,31 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/framework-bundle": "^3.4.22 || ^4.0",
-        "rollerworks/password-strength-validator": "^1.0.1"
+        "rollerworks/password-strength-validator": "^1.0.1",
+        "symfony/framework-bundle": "^3.4.22 || ^4.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^3.4.22 || ^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^3.1.0",
-        "matthiasnoback/symfony-service-definition-validator": "^1.2.8",
-        "symfony/var-dumper": "^3.4.22 || ^4.0",
-        "symfony/console": "^3.4.22 || ^4.0"
+        "symfony/console": "^3.4.22 || ^4.0",
+        "symfony/phpunit-bridge": "^3.4.22 || ^4.0",
+        "symfony/var-dumper": "^3.4.22 || ^4.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
     },
     "autoload": {
         "psr-4": {
             "Rollerworks\\Bundle\\PasswordStrengthBundle\\": "src/"
         },
-        "exclude-from-classmap": ["test/"]
+        "exclude-from-classmap": [
+            "test/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Rollerworks\\Bundle\\PasswordStrengthBundle\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
         }
     },
     "minimum-stability": "beta"
