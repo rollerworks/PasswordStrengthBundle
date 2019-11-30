@@ -49,8 +49,6 @@ final class RollerworksPasswordStrengthExtension extends Extension implements Pr
 
     /**
      * Allow an extension to prepend the extension configurations.
-     *
-     * @param ContainerBuilder $container
      */
     public function prepend(ContainerBuilder $container)
     {

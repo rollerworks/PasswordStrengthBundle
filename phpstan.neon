@@ -1,7 +1,15 @@
+includes:
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
+
 parameters:
     autoload_files:
         - vendor/autoload.php
-        - vendor/bin/.phpunit/phpunit-7.5.6/vendor/autoload.php
+        - vendor/bin/.phpunit/phpunit-7.5.6-0/vendor/autoload.php # Pain is your friend.... (at least it works for now)
+    level: 5
+    paths:
+        - ./src
+        - ./tests
 
+    checkNullables: false # To many false positives
     ignoreErrors:
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\:\:addDefaultsIfNotSet\(\)#'
