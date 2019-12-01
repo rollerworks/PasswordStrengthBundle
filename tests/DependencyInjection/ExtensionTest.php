@@ -34,17 +34,10 @@ use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass;
 
 class ExtensionTest extends AbstractExtensionTestCase
 {
-    protected function load(array $configurationValues = [])
-    {
-        parent::load($configurationValues);
-
-        $this->container->getAlias('rollerworks_password_strength.blacklist_provider')->setPublic(true);
-        $this->container->getCompiler()->addPass(new MakeAllServicesPublicPass(), PassConfig::TYPE_OPTIMIZE);
-    }
-
     public function testLoadDefaultConfiguration()
     {
         $this->load();
+        $this->initProviderService();
         $this->compile();
 
         $this->assertContainerBuilderHasService(BlacklistValidator::class);
@@ -52,6 +45,12 @@ class ExtensionTest extends AbstractExtensionTestCase
 
         $constraint = new BlacklistConstraint();
         $this->assertContainerBuilderHasService($constraint->validatedBy());
+    }
+
+    private function initProviderService(): void
+    {
+        $this->container->getAlias('rollerworks_password_strength.blacklist_provider')->setPublic(true);
+        $this->container->getCompiler()->addPass(new MakeAllServicesPublicPass(), PassConfig::TYPE_OPTIMIZE);
     }
 
     public function testLoadWithSqliteConfiguration()
@@ -65,6 +64,7 @@ class ExtensionTest extends AbstractExtensionTestCase
             ],
         ]);
 
+        $this->initProviderService();
         $this->compile();
 
         $this->assertContainerBuilderHasService(PasswordStrengthValidator::class);
@@ -82,6 +82,7 @@ class ExtensionTest extends AbstractExtensionTestCase
             ],
         ]);
 
+        $this->initProviderService();
         $this->compile();
 
         $this->assertContainerBuilderHasService(PasswordStrengthValidator::class);
@@ -117,6 +118,7 @@ class ExtensionTest extends AbstractExtensionTestCase
             new ArrayProvider(['amy', 'doctor', 'rory'])
         );
 
+        $this->initProviderService();
         $this->compile();
 
         $this->assertContainerBuilderHasService(PasswordStrengthValidator::class);
@@ -153,6 +155,7 @@ class ExtensionTest extends AbstractExtensionTestCase
             new ArrayProvider(['amy', 'doctor', 'rory'])
         );
 
+        $this->initProviderService();
         $this->compile();
 
         $this->assertContainerBuilderHasService(PasswordStrengthValidator::class);
@@ -174,6 +177,7 @@ class ExtensionTest extends AbstractExtensionTestCase
             ->setArguments([new Reference('service_container'), []]);
 
         $this->load();
+        $this->initProviderService();
         $this->compile();
 
         /** @var ContainerConstraintValidatorFactory $factory */
@@ -208,6 +212,7 @@ class ExtensionTest extends AbstractExtensionTestCase
                 ],
             ],
         ]);
+        $this->initProviderService();
         $this->compile();
 
         // No need to test all commands.
@@ -223,7 +228,7 @@ class ExtensionTest extends AbstractExtensionTestCase
         self::assertFalse($argument->has('container'), 'Should not have "container" as provider');
     }
 
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new RollerworksPasswordStrengthExtension(),
