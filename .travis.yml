@@ -19,14 +19,15 @@ matrix:
             - SYMFONY_PHPUNIT_VERSION=8.3.5
         - php: 7.3
           env:
+            - SYMFONY_PHPUNIT_VERSION=8.3.5
+        - php: 7.4
+          env:
             - lint=1
             - SYMFONY_PHPUNIT_VERSION=8.3.5
-            - QA_DOCKER_IMAGE=jakzal/phpqa:1.25.0-php7.3-alpine
+            - QA_DOCKER_IMAGE=jakzal/phpqa:1.34.1-php7.4-alpine
           services:
               - docker
     fast_finish: true
-
-sudo: false
 
 cache:
     directories:
