@@ -4,8 +4,7 @@
 | New feature?  | yes/no
 | BC breaks?    | yes/no
 | Deprecations? | yes/no
-| Tests pass?   | yes/no
-| Fixed tickets | #... <!-- #-prefixed issue number(s), if any -->
+| Fixed tickets | Fix #... <!-- prefix each issue number with "Fix #", no need to create an issue if none exist, explain below instead -->
 | License       | MIT
 
 <!--
