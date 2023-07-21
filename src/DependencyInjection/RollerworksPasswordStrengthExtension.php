@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 final class RollerworksPasswordStrengthExtension extends Extension implements PrependExtensionInterface
 {
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -50,7 +50,7 @@ final class RollerworksPasswordStrengthExtension extends Extension implements Pr
     /**
      * Allow an extension to prepend the extension configurations.
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         $container->prependExtensionConfig('framework', [
             'translator' => [
