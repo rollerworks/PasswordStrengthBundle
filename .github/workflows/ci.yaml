@@ -10,7 +10,7 @@ on:
 jobs:
     test:
         name: PHP ${{ matrix.PHP_VERSION }}
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
@@ -60,7 +60,6 @@ jobs:
                     git config --global user.email s.stok@rollerscapes.net
 
                     rm -f composer.lock
-                    composer global require symfony/flex
                     composer install --no-progress --no-interaction --optimize-autoloader --ansi
 
             ## —— Tests ✅ ———————————————————————————————————————————————————————————
@@ -92,7 +91,6 @@ jobs:
                 name: Install Composer dependencies
                 run: |
                     rm -f composer.lock
-                    composer global require symfony/flex
                     composer install --no-progress --no-interaction --no-suggest --optimize-autoloader --ansi
 
             -

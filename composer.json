@@ -28,7 +28,8 @@
         "matthiasnoback/symfony-dependency-injection-test": "^3.1.0 || ^4.1.0",
         "symfony/console": "^3.4.22 || ^4.0 || ^5.0 || ^6.0",
         "symfony/phpunit-bridge": "^3.4.22 || ^4.0 || ^5.0 || ^6.0",
-        "symfony/var-dumper": "^3.4.22 || ^4.0 || ^5.0 || ^6.0"
+        "symfony/var-dumper": "^3.4.22 || ^4.0 || ^5.0 || ^6.0",
+        "symfony/flex": "^1.20 || ^2.3"
     },
     "repositories": [
         {"url": "https://github.com/sstok/SymfonyDependencyInjectionTest.git", "type": "git"},
@@ -53,5 +54,16 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        }
+    }
 }
