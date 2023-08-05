@@ -1,0 +1,11 @@
+---------------------------------------------------------------------------
+
+by sstok at 2023-08-05T12:50:54Z
+
+```
+  Problem 1
+    - Root composer.json requires symfony/flex ^2.3 -> satisfiable by symfony/flex[v2.3.0, ..., 2.x-dev].
+    - symfony/flex[v2.3.0, ..., 2.x-dev] require php >=8.0 -> your php version (7.1.33) does not satisfy that requirement.
+```
+
+🐶☕️🔥 This is fine...
