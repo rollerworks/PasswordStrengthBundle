@@ -1,5 +1,18 @@
-UPGRADE FROM 1.x to 2.0
-=======================
+UPGRADE
+=======
+
+From 2.x to 3.0
+---------------
+
+* The blacklist validator was removed.
+
+  Use the [NotCompromisedPassword](https://symfony.com/doc/current/reference/constraints/NotCompromisedPassword.html)
+  validator or [PasswordCommonList Validator](https://github.com/rollerworks/password-common-list) instead.
+
+* Support for Symfony 4 and 5 was removed, PHP 8.2 and Symfony 6.0 is now the minimum required version.
+
+From 1.x to 2.0
+---------------
 
 Most of this bundle's content has been moved to a separate library
 at https://github.com/rollerworks/PasswordStrengthValidator.

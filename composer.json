@@ -1,14 +1,14 @@
 {
     "name": "rollerworks/password-strength-bundle",
-    "type": "symfony-bundle",
     "description": "Password-strength validator bundle for Symfony",
+    "license": "MIT",
+    "type": "symfony-bundle",
     "keywords": [
         "password",
         "validator",
         "symfony",
         "bundle"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Sebastiaan Stok",
@@ -20,26 +20,18 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
-        "rollerworks/password-strength-validator": "^1.0.1",
-        "symfony/framework-bundle": "^3.4.22 || ^4.0 || ^5.0 || ^6.0"
+        "php": ">=8.2",
+        "rollerworks/password-strength-validator": "^2.0",
+        "symfony/framework-bundle": "^6.0 || ^7.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^3.1.0 || ^4.1.0",
-        "symfony/console": "^3.4.22 || ^4.0 || ^5.0 || ^6.0",
-        "symfony/phpunit-bridge": "^3.4.22 || ^4.0 || ^5.0 || ^6.0",
-        "symfony/var-dumper": "^3.4.22 || ^4.0 || ^5.0 || ^6.0",
-        "symfony/flex": "^1.20 || ^2.3"
+        "matthiasnoback/symfony-dependency-injection-test": "^5.0 || ^v4.3.1",
+        "phpunit/phpunit": "^9.5",
+        "rollerscapes/standards": "^1.0",
+        "symfony/phpunit-bridge": "^6.0 || ^7.0"
     },
-    "repositories": [
-        {"url": "https://github.com/sstok/SymfonyDependencyInjectionTest.git", "type": "git"},
-        {"url": "https://github.com/sstok/SymfonyConfigTest.git", "type": "git"}
-    ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.1-dev"
-        }
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Rollerworks\\Bundle\\PasswordStrengthBundle\\": "src/"
@@ -53,17 +45,14 @@
             "Rollerworks\\Bundle\\PasswordStrengthBundle\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "config": {
         "allow-plugins": {
             "symfony/flex": true
         }
     },
-    "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    "extra": {
+        "branch-alias": {
+            "dev-main": "3.0-dev"
         }
     }
 }

@@ -13,9 +13,4 @@ namespace Rollerworks\Bundle\PasswordStrengthBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @author Sebastiaan Stok <s.stok@rollerscapes.net>
- */
-class RollerworksPasswordStrengthBundle extends Bundle
-{
-}
+final class RollerworksPasswordStrengthBundle extends Bundle {}
