@@ -1,7 +1,9 @@
-/phpunit.xml
-/composer.lock
-*.phar
+composer.lock
 /vendor/
-/.php_cs.cache
-symfony.lock
+
+phpunit.xml
 .phpunit.result.cache
+.phpunit.cache/
+.phpunit
+
+.php-cs-fixer.cache

@@ -1,7 +1,7 @@
 RollerworksPasswordStrengthBundle
 =================================
 
-This Symfony-bundle integrates the Rollerworks [PasswordStrengthValidator][1] into your Symfony application.
+This Symfony-bundle integrates the Rollerworks [PasswordStrengthValidator][component] into your Symfony application.
 
 _The PasswordStrengthValidator provides various password strength validators for the Symfony Validator._
 
@@ -17,37 +17,21 @@ To install this package, add `rollerworks/password-strength-bundle` to your comp
 $ php composer.phar require rollerworks/password-strength-bundle
 ```
 
-Now, [Composer][2] will automatically download all required files, and install them
-for you.
+Now, [Composer][composer] will automatically download all required files,
+and install them for you.
 
-### Step2: Enable the bundle
+[Symfony Flex][flex]is assumed to enable the Bundle and add required configuration. 
+https://symfony.com/doc/current/bundles.html
 
-**Note:** This step is **not** required for Symfony Flex.
-
-Enable the bundle in the kernel:
-
-```php
-<?php
-
-// in AppKernel::registerBundles()
-$bundles = [
-    // ...
-    new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
-    // ...
-];
-```
+Otherwise enable the `Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle`.
 
 ## Requirements
 
-You need at least PHP 5.6 or PHP 7.0, mbstring is recommended but not required.
-For the provided blacklist providers you may need SQLite3 or a PDO compatible driver.
-
-Congratulations! You're ready!
+You need at least PHP PHP 8.2, mbstring is recommended but not required, and at least Symfony 6.
 
 ## Basic Usage
 
-Documentation for the various constraints can be found in the [PasswordStrengthValidator][1] package.
-See the [bundle reference configuration](docs/configuration.md) to configure usage with this bundle.
+Documentation for the various constraints can be found in the [PasswordStrengthValidator][component] package.
 
 ## Versioning
 
@@ -74,10 +58,11 @@ This library is released under the [MIT license](LICENSE).
 ## Contributing
 
 This is an open source project. If you'd like to contribute,
-please read the [Contributing Guidelines][3]. If you're submitting
-a pull request, please follow the guidelines in the [Submitting a Patch][4] section.
+please read the [Contributing Guidelines][contributing]. If you're submitting
+a pull request, please follow the guidelines in the [Submitting a Patch][patches] section.
 
-[1]: https://github.com/rollerworks/PasswordStrengthValidator
-[2]: https://getcomposer.org/doc/00-intro.md
-[3]: https://github.com/rollerworks/contributing
-[4]: https://contributing.readthedocs.org/en/latest/code/patches.html
+[component]: https://github.com/rollerworks/PasswordStrengthValidator
+[composer]: https://getcomposer.org/doc/00-intro.md
+[flex]: https://symfony.com/doc/current/setup/flex.html
+[contributing]: https://contributing.rollerscapes.net/
+[patches]: https://contributing.rollerscapes.net/latest/patches.html

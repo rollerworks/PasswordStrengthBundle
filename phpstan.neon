@@ -1,15 +1,17 @@
 includes:
-    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/rollerscapes/standards/phpstan.neon
+    #- phpstan-baseline.neon
 
 parameters:
-    autoload_files:
-        - vendor/autoload.php
-        - vendor/bin/.phpunit/phpunit-8.3.5-0/vendor/autoload.php # Pain is your friend.... (at least it works for now)
+    #reportUnmatchedIgnoredErrors: false
     level: 5
+
     paths:
         - ./src
         - ./tests
+    excludePaths:
+        - var/
+        - templates/
+        - translations/
 
-    checkNullables: false # To many false positives
-    ignoreErrors:
-        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder\:\:root\(\)#'
+    #ignoreErrors:
