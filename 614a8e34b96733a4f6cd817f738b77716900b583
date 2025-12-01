@@ -1,0 +1,1 @@
+{"schema":1,"id":120,"category":"feature","title":"Add support for Symfony 8","flags":["bc-break"],"authors":["sstok"]}
