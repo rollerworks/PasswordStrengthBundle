@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the RollerworksPasswordStrengthBundle package.
  *
@@ -19,7 +21,10 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Validator\ContainerConstraintValidatorFactory;
 use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass;
 
-class ExtensionTest extends AbstractExtensionTestCase
+/**
+ * @internal
+ */
+final class ExtensionTest extends AbstractExtensionTestCase
 {
     public function test_password_validators_are_registered()
     {
@@ -34,7 +39,7 @@ class ExtensionTest extends AbstractExtensionTestCase
         /** @var ContainerConstraintValidatorFactory $factory */
         $factory = $this->container->get('validator.validator_factory');
 
-        self::assertInstanceOf(PasswordStrengthValidator::class, $factory->getInstance(new PasswordStrength(['minStrength' => 1])));
+        self::assertInstanceOf(PasswordStrengthValidator::class, $factory->getInstance(new PasswordStrength(minStrength: 1)));
     }
 
     protected function getContainerExtensions(): array
