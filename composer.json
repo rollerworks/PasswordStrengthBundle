@@ -20,15 +20,15 @@
         }
     ],
     "require": {
-        "php": ">=8.2",
-        "rollerworks/password-strength-validator": "^2.0",
-        "symfony/framework-bundle": "^6.0 || ^7.0"
+        "php": ">=8.4",
+        "rollerworks/password-strength-validator": "^3.0",
+        "symfony/framework-bundle": "^8.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^5.0 || ^v4.3.1",
-        "phpunit/phpunit": "^9.5",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.2",
+        "phpunit/phpunit": "^12.4",
         "rollerscapes/standards": "^1.0",
-        "symfony/phpunit-bridge": "^6.0 || ^7.0"
+        "symfony/phpunit-bridge": "^8.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -52,7 +52,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "3.0-dev"
+            "dev-main": "4.0-dev"
         }
     }
 }

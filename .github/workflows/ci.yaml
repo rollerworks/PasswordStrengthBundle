@@ -17,7 +17,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.2'
+                    - '8.4'
 
         steps:
             -
@@ -46,7 +46,7 @@ jobs:
 
             -
                 name: 'Install dependencies'
-                run: 'composer install --no-progress'
+                run: 'composer update --no-progress --prefer-stable'
 
             -
                 name: 'Check the code style'
@@ -60,7 +60,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.2'
+                    - '8.4'
 
         steps:
             -
@@ -89,7 +89,7 @@ jobs:
 
             -
                 name: 'Install dependencies'
-                run: 'composer install --no-progress'
+                run: 'composer update --no-progress --prefer-stable'
 
             -
                 name: 'Run PhpStan'
@@ -104,18 +104,9 @@ jobs:
             matrix:
                 include:
                     -
-                        php-version: '8.2'
+                        php-version: '8.4'
                         composer-options: '--prefer-stable'
-                        symfony-version: '6.3'
-                    -
-                        php-version: '8.2'
-                        composer-options: '--prefer-stable'
-                        symfony-version: '^6.4'
-
-                    -
-                        php-version: '8.2'
-                        composer-options: '--prefer-stable'
-                        symfony-version: '^7.0'
+                        symfony-version: '^8.0'
 
         steps:
             -
@@ -154,4 +145,5 @@ jobs:
 
             -
                 name: 'Run tests'
-                run: make phpunit
+                run: |
+                    vendor/bin/phpunit
