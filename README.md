@@ -20,7 +20,7 @@ $ php composer.phar require rollerworks/password-strength-bundle
 Now, [Composer][composer] will automatically download all required files,
 and install them for you.
 
-[Symfony Flex][flex]is assumed to enable the Bundle and add required configuration. 
+[Symfony Flex][flex] is assumed to enable the Bundle and add required configuration.
 https://symfony.com/doc/current/bundles.html
 
 Otherwise enable the `Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle`.
