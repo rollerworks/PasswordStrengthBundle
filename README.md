@@ -27,7 +27,7 @@ Otherwise enable the `Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPassw
 
 ## Requirements
 
-You need at least PHP PHP 7.4 and Symfony 7.4, mbstring is recommended but not required.
+You need at least PHP 8.4 and Symfony 7.4, mbstring is recommended but not required.
 
 ## Basic Usage
 
