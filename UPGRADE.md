@@ -4,7 +4,7 @@ UPGRADE
 From 3.x to 4.0
 ---------------
 
-* Support for Symfony 6 and 7 was removed, PHP 8.4 and Symfony 8.0 is now the minimum required version.
+* Support for Symfony 6 was removed, PHP 8.4 and Symfony 7.4 is now the minimum required version.
 
 * The constructor of password constraints has changed, see (Upgrade instructions of the validator library)[https://github.com/rollerworks/PasswordStrengthValidator/blob/main/UPGRADE.md]
 
