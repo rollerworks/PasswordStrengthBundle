@@ -20,13 +20,13 @@
         }
     ],
     "require": {
-        "php": ">=8.4",
+        "php": ">=7.4",
         "rollerworks/password-strength-validator": "^3.0",
         "symfony/framework-bundle": "^7.4 || ^8.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^6.2",
-        "phpunit/phpunit": "^12.4",
+        "matthiasnoback/symfony-dependency-injection-test": "^5.1 || ^6.2",
+        "phpunit/phpunit": "^11.5 || ^12.4",
         "rollerscapes/standards": "^1.0",
         "symfony/phpunit-bridge": "^7.4 || ^8.0"
     },
