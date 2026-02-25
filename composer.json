@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=8.4",
+        "php": "^8.4",
         "rollerworks/password-strength-validator": "^3.0",
         "symfony/framework-bundle": "^7.4 || ^8.0"
     },
