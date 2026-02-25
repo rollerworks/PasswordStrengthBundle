@@ -16,6 +16,8 @@
         <ini name="intl.error_level" value="0"/>
         <ini name="memory_limit" value="-1"/>
         <ini name="default_charset" value="UTF-8"/>
+
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0" />
     </php>
 
     <testsuites>

@@ -19,7 +19,12 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Validator\ContainerConstraintValidatorFactory;
 use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass;
 
-class ExtensionTest extends AbstractExtensionTestCase
+/**
+ * @internal
+ *
+ * @group legacy
+ */
+final class ExtensionTest extends AbstractExtensionTestCase
 {
     public function test_password_validators_are_registered()
     {
