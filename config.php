@@ -9,5 +9,6 @@ return [
     'main_branch' => 'main',
     'branches' => [
         '1.x' => false,
+        '2.x' => false,
     ],
 ];
