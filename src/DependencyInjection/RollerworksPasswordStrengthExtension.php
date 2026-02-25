@@ -16,14 +16,20 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class RollerworksPasswordStrengthExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('strength_validator.xml');
+        if (class_exists(XmlFileLoader::class)) {
+            $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+            $loader->load('strength_validator.xml');
+        } else {
+            $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+            $loader->load('strength_validator.php');
+        }
     }
 
     public function prepend(ContainerBuilder $container): void
